@@ -6,12 +6,28 @@
     <title>메인</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 0;
+            padding-top: 80px; /* nav 바 높이만큼 패딩 추가 */
+            padding-bottom: 60px; /* 아래쪽 nav 바 높이만큼 패딩 추가 */
+            overflow-y: scroll; /* 세로 스크롤 가능하도록 설정 */
+            background-color: #f4f4f9;
         }
         main {
             padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
         }
         footer {
             background-color: #333;
@@ -39,5 +55,8 @@
             <p>This is the contact section.</p>
         </section>
     </main>
+    <footer>
+        {% include 'undernav.html' %}
+    </footer>
 </body>
 </html>

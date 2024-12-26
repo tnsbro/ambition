@@ -10,6 +10,7 @@
             margin: 0;
             background-color: #f4f4f4;
             padding-top: 80px; /* nav 바 높이만큼 패딩 추가 */
+            padding-bottom: 80px; /* nav 바 높이만큼 패딩 추가 */
             overflow-y: scroll; /* 세로 스크롤 가능하도록 설정 */
         }
         .choice-container {
@@ -71,6 +72,9 @@
             </div>
         </div>
     </main>
+    <footer>
+        {% include 'undernav.html' %}
+    </footer>
     <script>
         function selectPerson(person) {
             window.location.href = '/map/' + person;
