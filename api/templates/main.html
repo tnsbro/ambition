@@ -10,31 +10,6 @@
             margin: 0;
             padding: 0;
         }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 20px 0; /* 높이 증가 */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: space-between; /* 항목을 양쪽 끝으로 배치 */
-        }
-        nav ul li {
-            margin: 0 15px;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-        nav ul li a:hover {
-            text-decoration: underline;
-        }
         main {
             padding: 20px;
         }
@@ -47,83 +22,13 @@
             width: 100%;
             bottom: 0;
         }
-        .menu {
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            top: 0;
-            right: -250px;
-            width: 250px;
-            height: 100%;
-            background-color: #333;
-            padding-top: 60px;
-            transition: right 0.3s;
-        }
-        .menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-        }
-        .menu a {
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 25px;
-            color: white;
-            display: block;
-        }
-        .menu a:hover {
-            background-color: #575757;
-        }
-        .menu-btn {
-            font-size: 30px;
-            cursor: pointer;
-            color: white;
-            position: fixed;
-            top: 15px;
-            right: 15px;
-        }
-        .menu-btn:hover {
-            color: #575757;
-        }
-        .menu-open {
-            right: 0;
-        }
     </style>
-    <script>
-        function toggleMenu() {
-            document.getElementById("menu").classList.toggle("menu-open");
-            document.getElementById("menu-btn").classList.toggle("menu-open");
-        }
-    </script>
 </head>
 <body>
     <header>
-        <nav>
-            <div>
-                <ul>
-                    <li><a href="/"><img src="/file/logo.png" alt="Logo" width="42px" height="30px"></a></li>
-                </ul>
-            </div>
-            <span id="menu-btn" class="menu-btn" onclick="toggleMenu()">&#9776;</span>
-            <div id="menu" class="menu">
-                <span class="menu-btn" onclick="toggleMenu()">&#9776;</span>
-                <ul>
-                    <li><a href="/find">Find</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    {% if request.cookies.get('email') %}
-                        <li><a href="/mypage">My Page</a></li>
-                        <li><a href="/logout">Log Out</a></li>
-                    {% else %}
-                        <li><a href="/login">Sign In</a></li>
-                        <li><a href="/join">Sign Up</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
+        {% include 'nav.html' %}
     </header>
+    
     <main>
         <section id="about">
             <h2>About</h2>

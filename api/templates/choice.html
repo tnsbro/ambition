@@ -7,18 +7,17 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
             background-color: #f4f4f4;
+            padding-top: 80px; /* nav 바 높이만큼 패딩 추가 */
+            overflow-y: scroll; /* 세로 스크롤 가능하도록 설정 */
         }
         .choice-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
+            padding: 20px;
         }
         .person-box {
             background-color: white;
@@ -45,23 +44,33 @@
     </style>
 </head>
 <body>
-    <div class="choice-container">
-        <div class="person-box" onclick="selectPerson('person1')">
-            <h3>사람 1</h3>
-            <p>정보 1</p>
-            <p>정보 2</p>
+    <header>
+        {% include 'nav.html' %}
+    </header>
+    <main>
+        <div class="choice-container">
+            <div class="person-box" onclick="selectPerson('person1')">
+                <h3>사람 1</h3>
+                <p>정보 1</p>
+                <p>정보 2</p>
+            </div>
+            <div class="person-box" onclick="selectPerson('person2')">
+                <h3>사람 2</h3>
+                <p>정보 1</p>
+                <p>정보 2</p>
+            </div>
+            <div class="person-box" onclick="selectPerson('person3')">
+                <h3>사람 3</h3>
+                <p>정보 1</p>
+                <p>정보 2</p>
+            </div>
+            <div class="person-box" onclick="selectPerson('person4')">
+                <h3>사람 4</h3>
+                <p>정보 1</p>
+                <p>정보 2</p>
+            </div>
         </div>
-        <div class="person-box" onclick="selectPerson('person2')">
-            <h3>사람 2</h3>
-            <p>정보 1</p>
-            <p>정보 2</p>
-        </div>
-        <div class="person-box" onclick="selectPerson('person3')">
-            <h3>사람 3</h3>
-            <p>정보 1</p>
-            <p>정보 2</p>
-        </div>
-    </div>
+    </main>
     <script>
         function selectPerson(person) {
             window.location.href = '/map/' + person;
