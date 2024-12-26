@@ -94,6 +94,7 @@
     <script>
         function toggleMenu() {
             document.getElementById("menu").classList.toggle("menu-open");
+            document.getElementById("menu-btn").classList.toggle("menu-open");
         }
     </script>
 </head>
@@ -105,8 +106,9 @@
                     <li><a href="/"><img src="/file/logo.png" alt="Logo" width="42px" height="30px"></a></li>
                 </ul>
             </div>
-            <span class="menu-btn" onclick="toggleMenu()">&#9776;</span>
+            <span id="menu-btn" class="menu-btn" onclick="toggleMenu()">&#9776;</span>
             <div id="menu" class="menu">
+                <span class="menu-btn" onclick="toggleMenu()">&#9776;</span>
                 <ul>
                     <li><a href="/find">Find</a></li>
                     <li><a href="#about">About</a></li>
