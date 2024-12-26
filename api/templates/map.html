@@ -63,23 +63,23 @@
     <main>
         <div id="map"></div>
         <br>
-        <form id="circumcenterForm">
+        <form id="circumcenterForm" onsubmit="calculate(event); return false;">
             <label>Point 1 (x1, y1):</label>
-            <input type="number" id="x1" placeholder="x1" required>
-            <input type="number" id="y1" placeholder="y1" required>
+            <input type="number" id="x1" placeholder="x1" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" >
+            <input type="number" id="y1" placeholder="y1" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" >
             <br>
 
             <label>Point 2 (x2, y2):</label>
-            <input type="number" id="x2" placeholder="x2" required>
-            <input type="number" id="y2" placeholder="y2" required>
+            <input type="number" id="x2" placeholder="x2" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" >
+            <input type="number" id="y2" placeholder="y2" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
             <br>
 
             <label>Point 3 (x3, y3):</label>
-            <input type="number" id="x3" placeholder="x3" required>
-            <input type="number" id="y3" placeholder="y3" required>
+            <input type="number" id="x3" placeholder="x3" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" >
+            <input type="number" id="y3" placeholder="y3" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" >
             <br>
 
-            <button type="button" onclick="reset()">Calculate</button>
+            <button type="submit">Calculate</button>
         </form>
 
         <div id="result"></div>
@@ -122,7 +122,7 @@
                 cx = line2[1]
                 cy = line1[0] != null ? line1[0] * cx + line1[1] : line1[1]
             } else if (line1[0] == line2[0]) {
-                return ValueError("The three points are collinear")
+                return "The three points are collinear"
             } else {
                 cx = (line2[1] - line1[1]) / (line1[0] - line2[0])
                 cy = line1[0] * cx + line1[1]
@@ -131,7 +131,9 @@
             return [cx, cy]
         };
 
-        function reset() {
+        function calculate(event) {
+            if (event) event.preventDefault();
+
             var x1 = document.getElementById("x1").value
             var y1 = document.getElementById("y1").value
             var x2 = document.getElementById("x2").value
@@ -147,6 +149,8 @@
                 var x3 = 35.690130
                 var y3 = 128.449653
             }
+
+            console.log(x1, y1, x2, y2, x3, y3)
 
             const circumcenter = calculate_circumcenter(x1, y1, x2, y2, x3, y3)
 
@@ -201,8 +205,9 @@
             Outcircle.setMap(map);
         }
 
-        reset()
-
+        window.onload = function() {
+            calculate();
+        };
     </script>
 </body>
 
