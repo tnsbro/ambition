@@ -24,7 +24,7 @@
             margin-top: 0;
         }
         .login-container input {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -48,8 +48,11 @@
     <div class="login-container">
         <h2>로그인</h2>
         <form action="/login" method="post">
-            <input type="text" name="username" placeholder="사용자 이름" required>
+            <input type="text" name="email" placeholder="이메일" required>
             <input type="password" name="password" placeholder="비밀번호" required>
+            {% if error == 401 %} 
+            <p style="color: red;">이메일 또는 비밀번호가 일치하지 않습니다.</p>
+            {% endif %}
             <button type="submit">로그인</button>
         </form>
     </div>
