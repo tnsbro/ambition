@@ -14,6 +14,9 @@
             background-color: #333;
             color: white;
             padding: 20px 0; /* 높이 증가 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         nav ul {
             list-style: none;
@@ -44,30 +47,77 @@
             width: 100%;
             bottom: 0;
         }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            padding-top: 60px;
+            transition: right 0.3s;
+        }
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .menu a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: block;
+        }
+        .menu a:hover {
+            background-color: #575757;
+        }
+        .menu-btn {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+        }
+        .menu-btn:hover {
+            color: #575757;
+        }
+        .menu-open {
+            right: 0;
+        }
     </style>
+    <script>
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("menu-open");
+        }
+    </script>
 </head>
 <body>
     <header>
         <nav>
-            <ul>
-                <div style="display: flex;">
-                    <li><img src="/file/logo.png" alt="logo" width="42px" height="30px"></li>
+            <div class="logo">
+                <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo"></a>
+            </div>
+            <span class="menu-btn" onclick="toggleMenu()">&#9776;</span>
+            <div id="menu" class="menu">
+                <ul>
                     <li><a href="/find">Find</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
-                </div>
-                {% if request.cookies.get('email') %}
-                <div style="display: flex;">
-                    <li><a href="/mypage">My Page</a></li>
-                    <li><a href="/logout">Log Out</a></li>
-                </div>
-                {% else %}
-                <div style="display: flex;">
-                    <li><a href="/login">Sign In</a></li>
-                    <li><a href="/join">Sign Up</a></li>
-                </div>
-                {% endif %}          
-            </ul>
+                    {% if request.cookies.get('email') %}
+                        <li><a href="/mypage">My Page</a></li>
+                        <li><a href="/logout">Log Out</a></li>
+                    {% else %}
+                        <li><a href="/login">Sign In</a></li>
+                        <li><a href="/join">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </nav>
     </header>
     <main>
