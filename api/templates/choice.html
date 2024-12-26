@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .choice-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .person-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px; /* 상자 라운드 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 220px; /* 상자 크기 증가 */
+            height: 300px; /* 상자 크기 증가 */
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #000; /* 외곽선 검정색 */
+            transition: transform 0.3s; /* 호버 애니메이션 */
+        }
+        .person-box:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.05); /* 호버 시 확대 */
+        }
+        .person-box h3 {
+            margin-top: 0;
+        }
+        .person-box p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="choice-container">
+        <div class="person-box" onclick="selectPerson('person1')">
+            <h3>사람 1</h3>
+            <p>정보 1</p>
+            <p>정보 2</p>
+        </div>
+        <div class="person-box" onclick="selectPerson('person2')">
+            <h3>사람 2</h3>
+            <p>정보 1</p>
+            <p>정보 2</p>
+        </div>
+        <div class="person-box" onclick="selectPerson('person3')">
+            <h3>사람 3</h3>
+            <p>정보 1</p>
+            <p>정보 2</p>
+        </div>
+    </div>
+    <script>
+        function selectPerson(person) {
+            window.location.href = '/map/' + person;
+        }
+    </script>
+</body>
+</html>

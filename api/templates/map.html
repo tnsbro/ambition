@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{tag}} 위치추적</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            width: 100%;
+            padding: 10px 0; /* nav 바 크기 줄임 */
+            text-align: center;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        #map {
+            width: 600px; /* 지도 크기 증가 */
+            height: 600px; /* 지도 크기 증가 */
+            margin-top: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{tag}} 위치추적</h1>
+    </header>
+    <main>
+        <div id="map"></div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Ambition</p>
+    </footer>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0de8a93d1da235c5f124f1c12dac5629"></script>
+    <script>
+        function line_equation(slope, mid_x, mid_y) {
+            if (slope == null) {
+                return [null, min_x]
+            } else if (slope == 0) {
+                return [0, mid_y]
+            } else {
+                intercept = mid_y - slope * mid_x
+                return [slope, intercept]
+            }
+        };
+
+        function calculate_circumcenter(x1,y1,x2,y2,x3,y3) {
+            var mid1_x = (x1 + x2) / 2
+            var mid1_y = (y1 + y2) / 2
+            var mid2_x = (x2 + x3) / 2
+            var mid2_y = (y2 + y3) / 2
+            var slope1 = x2 != x1 ? (y2 - y1) / (x2 - x1) : null
+            var slope2 = x3 != x2 ? (y3 - y2) / (x3 - x2) : null
+            var perp_slope1 = slope1 != null || slope1 != 0 ? -1 / slope1 : null
+            var perp_slope2 = slope2 != null || slope2 != 0 ? -1 / slope2 : null
+
+            line1 = line_equation(perp_slope1, mid1_x, mid1_y)
+            line2 = line_equation(perp_slope2, mid2_x, mid2_y)
+
+            if (line1[0] == null) {
+                cx = line1[1]
+                cy = line2[0] != null ? line2[0] * cx + line2[1] : line2[1]
+            } else if (line2[0] == null) {
+                cx = line2[1]
+                cy = line1[0] != null ? line1[0] * cx + line1[1] : line1[1]
+            } else if (line1[0] == line2[0]) {
+                return ValueError("The three points are collinear")
+            } else {
+                cx = (line2[1] - line1[1]) / (line1[0] - line2[0])
+                cy = line1[0] * cx + line1[1]
+            }
+
+            return [cx, cy]
+        };
+
+        var x1 = 35.691845
+        var y1 = 128.447974
+        var x2 = 35.689694
+        var y2 = 128.446349
+        var x3 = 35.690130
+        var y3 = 128.449653
+
+        const circumcenter = calculate_circumcenter(x1, y1, x2, y2, x3, y3)
+
+        var d_x = Math.abs(x1 - circumcenter[0])
+        var d_y = Math.abs(y1 - circumcenter[1])
+        var avg_d = ((x1 + circumcenter[0]) / 2) * (Math.PI / 180)
+        var distance_x = d_x * 111139
+        var distance_y = d_y * 111139 * Math.cos(avg_d)
+        var distance = Math.sqrt(distance_x ** 2 + distance_y ** 2)
+        
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new window.kakao.maps.LatLng(circumcenter[0], circumcenter[1]), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        // 지도를 표시할 div와 지도 옵션
+        var map = new window.kakao.maps.Map(mapContainer, mapOption);
+        var markerPosition = new window.kakao.maps.LatLng(circumcenter[0], circumcenter[1]);
+
+        // 마커 생성
+        var marker = new window.kakao.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정
+        marker.setMap(map);
+
+        // 지도에 표시할 원을 생성
+        var Incircle = new window.kakao.maps.Circle({
+            center: new window.kakao.maps.LatLng(circumcenter[0], circumcenter[1]),  // 원의 중심좌표
+            radius: 50, // 미터 단위의 원의 반지름
+            strokeOpacity: 0, // 선의 불투명도
+            strokeStyle: 'dashed', // 선의 스타일
+            fillColor: '#00b000', // 채우기 색깔
+            fillOpacity: 0.4  // 채우기 불투명도
+        });
+
+        // 지도에 원을 표시
+        Incircle.setMap(map);
+
+        var Outcircle = new window.kakao.maps.Circle({
+            center: new window.kakao.maps.LatLng(circumcenter[0], circumcenter[1]),  // 원의 중심좌표
+            radius: distance, // 미터 단위의 원의 반지름
+            strokeOpacity: 0, // 선의 불투명도
+            strokeStyle: 'dashed', // 선의 스타일
+            fillColor: '#00b000', // 채우기 색깔
+            fillOpacity: 0.2  // 채우기 불투명도
+        });
+
+        // 지도에 원을 표시
+        Outcircle.setMap(map);
+    </script>
+</body>
+</html>
