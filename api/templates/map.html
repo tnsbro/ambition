@@ -84,6 +84,7 @@
 
         <div id="result"></div>
         <div id="error"></div>
+        <button type="submit"  onclick="set()">set</button>
     </main>
     <footer>
         <p>&copy; 2024 Ambition</p>
@@ -91,6 +92,15 @@
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0de8a93d1da235c5f124f1c12dac5629"></script>
     <script>
+        function set() {
+            document.getElementById("x1").value = "33.453071"
+            document.getElementById("y1").value = "126.571341"
+            document.getElementById("x2").value = "33.4449311"
+            document.getElementById("y2").value = "126.568030"
+            document.getElementById("x3").value = "33.449078"
+            document.getElementById("y3").value = "126.574815"
+        }
+
         function line_equation(slope, mid_x, mid_y) {
             if (slope == null) {
                 return [null, min_x]
