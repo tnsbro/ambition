@@ -63,7 +63,7 @@
     <main>
         <div id="map"></div>
         <br>
-        <form id="circumcenterForm" onsubmit="calculate(event); return false;">
+        <form id="circumcenterForm" onsubmit="restart(event); return false;">
             <label>Point 1 (x1, y1):</label>
             <input type="number" id="x1" placeholder="x1" required step="any">
             <input type="number" id="y1" placeholder="y1" required step="any">
@@ -130,6 +130,12 @@
 
             return [cx, cy]
         };
+        
+        function restart(event) {
+            if (event) event.preventDefault();
+            document.getElementById("map").innerHTML = "";
+            calculate();
+        }
 
         function calculate(event) {
             if (event) event.preventDefault();
