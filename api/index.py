@@ -19,6 +19,8 @@ def index():
             email = serializer.loads(email_cookie, max_age=60*60*24*30)  # 쿠키 유효기간 30일
             member = members_collection.find_one({'email': email})
             if member:
+                if 'stamp' not in member:
+                    member['stamp'] = 0
                 return render_template('mypage.html', member=member)
         except:
             return render_template('login.html')
@@ -48,7 +50,7 @@ def mypage():
                     member['stamp'] = 0
                 return render_template('mypage.html', member=member)
         except:
-            return redirect(url_for('login'))
+            return render_template('login.html')  # 수정된 부분
     return redirect(url_for('login'))
 
 @app.route('/login', methods=['POST', 'GET'])
