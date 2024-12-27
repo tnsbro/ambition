@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            padding-bottom: 80px; /* nav 바 높이만큼 패딩 추가 */
+            overflow-y: scroll; /* 세로 스크롤 가능하도록 설정 */
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 80px; /* header 높이만큼 마진 추가 */
+        }
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .product {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer; /* 클릭 가능하도록 커서 변경 */
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .product h3 {
+            margin: 10px 0;
+        }
+        .product p {
+            color: #555;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            z-index: 1000;
+        }
+    </style>
+    <script>
+        function redirectToBuy(productName, productPrice) {
+            window.location.href = `/buy/${productName}/${productPrice}`;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        {% include 'nav.html' %}
+    </header>
+    <main>
+        <h1>Market</h1>
+        <div class="product-list">
+            {% for product in products %}
+            <div class="product" onclick="redirectToBuy('{{ product.name }}', '{{ product.price }}')">
+                <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <p>Price: {{ product.price }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        {% include 'undernav.html' %}
+    </footer>
+</body>
+</html>
