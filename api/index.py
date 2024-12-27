@@ -102,30 +102,27 @@ def market():
 def buy(product_name, product_price):
     email_cookie = request.cookies.get('email')
     if email_cookie:
-        try:
-            email = serializer.loads(email_cookie, max_age=60*60*24*30)  # 쿠키 유효기간 30일
-            member = members_collection.find_one({'email': email})
-            if member:
-                product_price = int(product_price.replace('개', ''))
-                if member['stamp'] < product_price:
-                    return f"Error: Not enough stamps. You have {member['stamp']} stamps, but the product costs {product_price} stamps."
-                
-                # 상품 이름과 가격이 일치하는지 확인
-                products = [
-                    {'name': 'Product 1', 'description': 'Description 1', 'price': 10, 'image_url': '/static/images/product1.jpg'},
-                    {'name': 'Product 2', 'description': 'Description 2', 'price': 20, 'image_url': '/static/images/product2.jpg'},
-                    {'name': 'Product 3', 'description': 'Description 3', 'price': 30, 'image_url': '/static/images/product3.jpg'}
-                ]
-                product = next((p for p in products if p['name'] == product_name and p['price'] == product_price), None)
-                
-                if product:
-                    # 스탬프 차감
-                    members_collection.update_one({'email': email}, {'$inc': {'stamp': -product_price}})
-                    return redirect(url_for('market'))
-                else:
-                    return redirect(url_for('market'), error='enough')
-        except:
-            return redirect(url_for('login'))
+        email = serializer.loads(email_cookie, max_age=60*60*24*30)  # 쿠키 유효기간 30일
+        member = members_collection.find_one({'email': email})
+        if member:
+            product_price = int(product_price.replace('개', ''))
+            if member['stamp'] < product_price:
+                return redirect(url_for('market'))
+            
+            # 상품 이름과 가격이 일치하는지 확인
+            products = [
+                {'name': 'Product 1', 'description': 'Description 1', 'price': 10, 'image_url': '/static/images/product1.jpg'},
+                {'name': 'Product 2', 'description': 'Description 2', 'price': 20, 'image_url': '/static/images/product2.jpg'},
+                {'name': 'Product 3', 'description': 'Description 3', 'price': 30, 'image_url': '/static/images/product3.jpg'}
+            ]
+            product = next((p for p in products if p['name'] == product_name and p['price'] == product_price), None)
+            
+            if product:
+                # 스탬프 차감
+                members_collection.update_one({'email': email}, {'$inc': {'stamp': -product_price}})
+                return redirect(url_for('market'))
+            else:
+                return redirect(url_for('market'))
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
