@@ -90,9 +90,11 @@
             if (stamps.classList.contains('collapsed')) {
                 stamps.classList.remove('collapsed');
                 button.textContent = '스탬프 접기';
+                document.getElementById('ex_stamp').style.display = '';
             } else {
                 stamps.classList.add('collapsed');
                 button.textContent = '스탬프 펼치기';
+                document.getElementById('ex_stamp').style.display = 'none'; // ex_stamp를 잠깐 보이지 않게 설정
             }
         }
         document.addEventListener('DOMContentLoaded', function() {
@@ -100,15 +102,15 @@
             var html = '';
             if (stampCount > 4) {
                 for (var i = 0; i < 4; i++) {
-                    html += '<div class="stamp"><img src="/file/stamp.png" alt="stamp" width="100%" height="100%"></div>';
+                    html += '<div class="stamp"><img src="/file/stamp.png" alt="stamp" width="100%" height="100%">';
                 }
             } else {
                 for (var i = 0; i < stampCount; i++) {
-                    html += '<div class="stamp"><img src="/file/stamp.png" alt="stamp" width="100%" height="100%"></div>';
+                    html += '<div class="stamp"><img src="/file/stamp.png" alt="stamp" width="100%" height="100%">';
                 }
                 document.getElementById('toggle-button').style.display = 'none';
             }
-            document.getElementById('stamps').innerHTML = html;
+            document.getElementById('ex_stamp').innerHTML = html;
         });
     </script>
 </head>
@@ -122,9 +124,10 @@
             <h2>{{ member.name }}'s Profile</h2>
             <p>Email: {{ member.email }}</p>
             <p>Stamps: {{ member.stamp }}</p> <!-- 스탬프 수 추가 -->
+            <div id="ex_stamp"></div>
+            <button id="toggle-button" class="toggle-button" onclick="toggleStamps()">스탬프 펼치기</button>
             <div id="stamps" class="stamps collapsed">
             </div>
-            <button id="toggle-button" class="toggle-button" onclick="toggleStamps()">스탬프 펼치기</button>
         </div>
     </main>
     <footer>
