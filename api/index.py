@@ -55,13 +55,15 @@ def mypage():
 def login():
     if request.method == 'POST':
         member = members_collection.find_one({'email': request.form['email']})
-        if member and member['password'] == request.form['password']:
-            response = make_response(redirect(url_for('mypage')))
-            email_cookie = serializer.dumps(request.form['email'])
-            response.set_cookie('email', email_cookie, max_age=60*60*24*30)  # 쿠키 유효기간 30일
-            return response
-        return render_template('login.html', error=401)
-    return render_template('login.html')
+        if member:
+            if member['password'] == request.form['password']:
+                response = make_response(redirect(url_for('mypage')))
+                email_cookie = serializer.dumps(request.form['email'])
+                response.set_cookie('email', email_cookie, max_age=60*60*24*30)  # 쿠키 유효기간 30일
+                return response
+            return render_template('login.html', error=401)
+        return render_template('login.html', error=404)
+    return render_template('login.html', error=0)
 
 @app.route('/join', methods=['POST', 'GET'])
 def join():

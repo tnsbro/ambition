@@ -19,12 +19,13 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px; /* 고정 폭 설정 */
         }
         .login-container h2 {
             margin-top: 0;
         }
         .login-container input {
-            width: 95%;
+            width: 94%; /* 폭을 100%로 설정 */
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -45,15 +46,17 @@
     </style>
 </head>
 <body>
-    {% include 'nav.html' %}
     <div class="login-container">
         <h2>로그인</h2>
         <form action="/login" method="post">
             <input type="text" name="email" placeholder="이메일" required>
             <input type="password" name="password" placeholder="비밀번호" required>
             {% if error == 401 %} 
-            <p style="color: red;">이메일 또는 비밀번호가 일치하지 않습니다.</p>
+            <p style="color: red;">비밀번호가 일치하지 않습니다.</p>
+            {% elif error == 404 %}
+            <p style="color: red;">이메일이 존재하지 않습니다.</p>
             {% endif %}
+            <p style="text-align: right;">아직 계정이 없으신가요? <a href="/join">회원가입</a></p>
             <button type="submit">로그인</button>
         </form>
     </div>
