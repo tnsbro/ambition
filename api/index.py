@@ -120,9 +120,9 @@ def buy(product_name, product_price):
             if product:
                 # 스탬프 차감
                 members_collection.update_one({'email': email}, {'$inc': {'stamp': -product_price}})
-                return '레전드 성공'
+                return redirect(url_for('market'))
             else:
-                return "redirect(url_for('market'))"
+                return redirect(url_for('market'))
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
