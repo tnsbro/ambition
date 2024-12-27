@@ -118,12 +118,10 @@ def buy(product_name, product_price):
                         {'name': 'IPhone 16 PRO', 'description': 'Apple에서 새로 나온 신상 휴대폰', 'price': 2000}
             ]
             
-            if product:
+        
                 # 스탬프 차감
-                members_collection.update_one({'email': email}, {'$inc': {'stamp': -product_price}})
-                return redirect(url_for('market'))
-            else:
-                return redirect(url_for('market'))
+            members_collection.update_one({'email': email}, {'$inc': {'stamp': -product_price}})
+            return redirect(url_for('market'))
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
