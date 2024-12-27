@@ -102,11 +102,11 @@
             var html = '';
             if (stampCount > 4) {
                 for (var i = 0; i < 4; i++) {
-                    html += '<img src="/file/stamp.png" alt="stamp" width="100%" height="100%">';
+                    html += '<div class="stamp"><img src="/file/stamp.png" alt="stamp" width="100%" height="100%"></div>';
                 }
             } else {
                 for (var i = 0; i < stampCount; i++) {
-                    html += '<img src="/file/stamp.png" alt="stamp" width="100%" height="100%">';
+                    html += '<div class="stamp"><img src="/file/stamp.png" alt="stamp" width="100%" height="100%"></div>';
                 }
                 document.getElementById('toggle-button').style.display = 'none';
             }
@@ -127,6 +127,11 @@
             <div id="ex_stamp"></div>
             <button id="toggle-button" class="toggle-button" onclick="toggleStamps()">스탬프 펼치기</button>
             <div id="stamps" class="stamps collapsed">
+                {% for i in range(member.stamp): %}
+                    <div class="stamp">
+                        <img src="/file/stamp.png" alt="stamp" width="100%" height="100%">
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </main>
