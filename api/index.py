@@ -92,9 +92,9 @@ def logout():
 @app.route('/market')
 def market():
     products = [
-        {'name': 'Product 1', 'description': 'Description 1', 'price': '10개', 'image_url': '/static/images/product1.jpg'},
-        {'name': 'Product 2', 'description': 'Description 2', 'price': '20개', 'image_url': '/static/images/product2.jpg'},
-        {'name': 'Product 3', 'description': 'Description 3', 'price': '30개', 'image_url': '/static/images/product3.jpg'}
+        {'name': 'Product 1', 'description': 'Description 1', 'price': '10', 'image_url': '/static/images/product1.jpg'},
+        {'name': 'Product 2', 'description': 'Description 2', 'price': '20', 'image_url': '/static/images/product2.jpg'},
+        {'name': 'Product 3', 'description': 'Description 3', 'price': '30', 'image_url': '/static/images/product3.jpg'}
     ]
     return render_template('market.html', products=products)
 
@@ -111,9 +111,9 @@ def buy(product_name, product_price):
             
             # 상품 이름과 가격이 일치하는지 확인
             products = [
-                {'name': 'Product 1', 'description': 'Description 1', 'price': 10, 'image_url': '/static/images/product1.jpg'},
-                {'name': 'Product 2', 'description': 'Description 2', 'price': 20, 'image_url': '/static/images/product2.jpg'},
-                {'name': 'Product 3', 'description': 'Description 3', 'price': 30, 'image_url': '/static/images/product3.jpg'}
+                {'name': 'Product 1', 'description': 'Description 1', 'price': 10},
+                {'name': 'Product 2', 'description': 'Description 2', 'price': 20},
+                {'name': 'Product 3', 'description': 'Description 3', 'price': 30}
             ]
             product = next((p for p in products if p['name'] == product_name and p['price'] == product_price), None)
             

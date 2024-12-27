@@ -80,18 +80,12 @@
     <main>
         <h1>Market</h1>
         <div class="product-list">
-            {% if error == 'success' %}
-            <p>성공적으로 결제되었습니다.</p>
-            {% elif error == 'enough' %}
-            <p style="color: red;">스탬프가 부족합니다.</p>
-            {% endif %}
-
             {% for product in products %}
             <div class="product" onclick="redirectToBuy('{{ product.name }}', '{{ product.price }}')">
                 <img src="{{ product.image_url }}" alt="{{ product.name }}">
                 <h3>{{ product.name }}</h3>
                 <p>{{ product.description }}</p>
-                <p>Price: {{ product.price }}</p>
+                <p>필요 스탬프 : {{ product.price }}</p>
             </div>
             {% endfor %}
         </div>
