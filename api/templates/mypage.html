@@ -90,11 +90,11 @@
             if (stamps.classList.contains('collapsed')) {
                 stamps.classList.remove('collapsed');
                 button.textContent = '스탬프 접기';
-                document.getElementById('ex_stamp').style.display = '';
+                document.getElementById('ex_stamp').style.display = 'none';
             } else {
                 stamps.classList.add('collapsed');
                 button.textContent = '스탬프 펼치기';
-                document.getElementById('ex_stamp').style.display = 'none'; // ex_stamp를 잠깐 보이지 않게 설정
+                document.getElementById('ex_stamp').style.display = ''; // ex_stamp를 잠깐 보이지 않게 설정
             }
         }
         document.addEventListener('DOMContentLoaded', function() {
@@ -124,7 +124,7 @@
             <h2>{{ member.name }}'s Profile</h2>
             <p>Email: {{ member.email }}</p>
             <p>Stamps: {{ member.stamp }}</p> <!-- 스탬프 수 추가 -->
-            <div id="ex_stamp"></div>
+            <div id="ex_stamp" class="stamps"></div>
             <button id="toggle-button" class="toggle-button" onclick="toggleStamps()">스탬프 펼치기</button>
             <div id="stamps" class="stamps collapsed">
                 {% for i in range(member.stamp): %}
