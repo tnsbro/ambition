@@ -19,16 +19,20 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px; /* 고정 폭 설정 */
         }
         .join-container h2 {
             margin-top: 0;
         }
         .join-container input {
-            width: 95%;
+            width: 94%; /* 폭을 100%로 설정 */
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+        }
+        .join-container input[name="password1"] {
+            border-color: red; /* 빨간색 테두리 */
         }
         .join-container button {
             width: 100%;
@@ -39,10 +43,28 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .join-container button:hover {
+        .join-container button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+        .join-container button:hover:enabled {
             background-color: #555;
         }
     </style>
+    <script>
+        function passwordcheck() {
+            var password = document.querySelector('input[name="password"]').value;
+            var password1 = document.querySelector('input[name="password1"]').value;
+            var submitButton = document.querySelector('button[type="submit"]');
+            if (password !== password1 || password.length < 6) {
+                document.querySelector('input[name="password1"]').style.borderColor = 'red';
+                submitButton.disabled = true;
+            } else {
+                document.querySelector('input[name="password1"]').style.borderColor = '#ccc';
+                submitButton.disabled = false;
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="join-container">
@@ -50,11 +72,13 @@
         <form action="/join" method="post">
             <input type="text" name="username" placeholder="사용자 이름" required>
             <input type="email" name="email" placeholder="이메일" required>
-            <input type="password" name="password" placeholder="비밀번호" required>
+            <input type="password" name="password" placeholder="비밀번호" oninput="passwordcheck()" required>
+            <input type="password" name="password1" placeholder="비밀번호 확인" oninput="passwordcheck()" required>
             {% if error == 409 %}
             <p style="color: red;">이미 존재하는 이메일입니다.</p>
             {% endif %}
-            <button type="submit">회원가입</button>
+            <p style="text-align: right;">이미 계정이 있으신가요? <a href="/login">로그인</a></p>
+            <button type="submit" disabled>회원가입</button>
         </form>
     </div>
 </body>
