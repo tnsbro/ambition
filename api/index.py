@@ -117,7 +117,6 @@ def buy(product_name, product_price):
                         {'name': '쿠우쿠우 50,000원 기프티콘', 'description': '쿠우쿠우 에서 사용할 수 있는 50,000원 기프티콘', 'price': 50},
                         {'name': 'IPhone 16 PRO', 'description': 'Apple에서 새로 나온 신상 휴대폰', 'price': 2000}
             ]
-            product = next((p for p in products if p['name'] == product_name and p['price'] == product_price), None)
             
             if product:
                 # 스탬프 차감
