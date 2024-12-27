@@ -43,23 +43,35 @@
         .login-container button:hover {
             background-color: #555;
         }
+
+        footer {
+            background-color: #333;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>로그인</h2>
-        <form action="/login" method="post">
-            <input type="text" name="email" placeholder="이메일" required>
-            <input type="password" name="password" placeholder="비밀번호" required>
-            {% if error == 401 %} 
-            <p style="color: red;">비밀번호가 일치하지 않습니다.</p>
-            {% elif error == 404 %}
-            <p style="color: red;">이메일이 존재하지 않습니다.</p>
-            {% endif %}
-            <p style="text-align: right;">아직 계정이 없으신가요? <a href="/join">회원가입</a></p>
-            <button type="submit">로그인</button>
-        </form>
-    </div>
+    <main>
+        <div class="login-container">
+            <h2>로그인</h2>
+            <form action="/login" method="post">
+                <input type="text" name="email" placeholder="이메일" required>
+                <input type="password" name="password" placeholder="비밀번호" required>
+                {% if error == 401 %} 
+                <p style="color: red;">비밀번호가 일치하지 않습니다.</p>
+                {% elif error == 404 %}
+                <p style="color: red;">이메일이 존재하지 않습니다.</p>
+                {% endif %}
+                <p style="text-align: right;">아직 계정이 없으신가요? <a href="/join">회원가입</a></p>
+                <button type="submit">로그인</button>
+            </form>
+        </div>
+    </main>
     <footer>
         {% include 'undernav.html' %}
     </footer>

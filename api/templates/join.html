@@ -50,6 +50,16 @@
         .join-container button:hover:enabled {
             background-color: #555;
         }
+
+        footer {
+            background-color: #333;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+        }
     </style>
     <script>
         function passwordcheck() {
@@ -67,20 +77,23 @@
     </script>
 </head>
 <body>
-    <div class="join-container">
-        <h2>회원가입</h2>
-        <form action="/join" method="post">
-            <input type="text" name="username" placeholder="사용자 이름" required>
-            <input type="email" name="email" placeholder="이메일" required>
-            <input type="password" name="password" placeholder="비밀번호" oninput="passwordcheck()" required>
-            <input type="password" name="password1" placeholder="비밀번호 확인" oninput="passwordcheck()" required>
-            {% if error == 409 %}
-            <p style="color: red;">이미 존재하는 이메일입니다.</p>
-            {% endif %}
-            <p style="text-align: right;">이미 계정이 있으신가요? <a href="/login">로그인</a></p>
-            <button type="submit" disabled>회원가입</button>
-        </form>
-    </div>
+    <main>
+        <div class="join-container">
+            <h2>회원가입</h2>
+            <form action="/join" method="post">
+                <input type="text" name="username" placeholder="사용자 이름" required>
+                <input type="email" name="email" placeholder="이메일" required>
+                <input type="password" name="password" placeholder="비밀번호" oninput="passwordcheck()" required>
+                <input type="password" name="password1" placeholder="비밀번호 확인" oninput="passwordcheck()" required>
+                {% if error == 409 %}
+                <p style="color: red;">이미 존재하는 이메일입니다.</p>
+                {% endif %}
+                <p style="text-align: right;">이미 계정이 있으신가요? <a href="/login">로그인</a></p>
+                <button type="submit" disabled>회원가입</button>
+            </form>
+        </div>
+    </main>
+    
     <footer>
         {% include 'undernav.html' %}
     </footer>
